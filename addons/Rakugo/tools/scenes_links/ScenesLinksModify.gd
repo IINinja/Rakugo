@@ -6,17 +6,13 @@ export var scene_link_edit:PackedScene
 var editor:EditorInterface
 var file_path:String
 var scenes_links: ScenesLinks
-var box : BoxContainer
-var tween : Tween
-var fd : FileDialog
-var le : LineEdit
+
+onready var box : BoxContainer = $ScrollContainer/VBoxContainer
+onready var tween : Tween = $Label/Tween
+onready var fd : FileDialog = $Control/FileDialog
+onready var le : LineEdit  = $ScenesLinksChooser/LineEdit
 
 func _ready() -> void:
-	box = $ScrollContainer/VBoxContainer
-	tween = $Label/Tween
-	fd = $Control/FileDialog
-	le = $ScenesLinksChooser/LineEdit
-
 	for ch in box.get_children():
 		ch.queue_free()
 
@@ -24,12 +20,18 @@ func _ready() -> void:
 
 	$Add.connect("pressed", self, "on_add")
 	$ScenesLinksChooser.connect("open", self, "_on_open")
+	$ScenesLinksChooser.connect("new_file", self, "_on_new")
 	$ScenesLinksChooser.connect("cancel", self, "_on_cancel")
 	$ScenesLinksChooser.connect("apply", self, "_on_apply")
 	$ScenesLinksChooser.connect("set_as_def", self, "notify",
 	 ["Setted as Default "])
 	fd.connect("confirmed", self, "_on_file_dialog")
 	tween.connect("tween_all_completed", $Label, "hide")
+	get_parent().connect("about_to_show", self, "_on_about_to_show")
+
+
+func _on_about_to_show() -> void:
+	$ScenesLinksChooser.load_cfg()
 
 
 func plugin_ready(_editor:EditorInterface) -> void:
@@ -69,6 +71,15 @@ func _on_cancel() -> void:
 	notify("Reloaded")
 
 
+func _on_new(_file_path:String) -> void:
+	file_path = _file_path
+
+	for ch in box.get_children():
+		ch.queue_free()
+
+	scenes_links = ScenesLinks.new()
+
+
 func _on_open(_file_path:String) -> void:
 	file_path = _file_path
 
@@ -78,7 +89,7 @@ func _on_open(_file_path:String) -> void:
 	scenes_links = load(file_path)
 	var sl_dict = scenes_links.get_as_dict()
 
-	prints("dict", sl_dict)
+	# prints("dict", sl_dict)
 
 	for k in sl_dict.keys():
 		var scene_path = sl_dict[k]
