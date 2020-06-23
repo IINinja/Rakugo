@@ -89,6 +89,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/Rakugo/statements/notify.gd"
 }, {
+"base": "Label",
+"class": "NotifyLabel",
+"language": "GDScript",
+"path": "res://addons/Rakugo/nodes/notify_label.gd"
+}, {
 "base": "Statement",
 "class": "PlayAnim",
 "language": "GDScript",
@@ -285,9 +290,9 @@ _global_script_classes=[ {
 "path": "res://addons/Rakugo/statements/say.gd"
 }, {
 "base": "Resource",
-"class": "ScenesLinks",
+"class": "SceneLinks",
 "language": "GDScript",
-"path": "res://addons/Rakugo/types/scenes_links.gd"
+"path": "res://addons/Rakugo/types/scene_links.gd"
 }, {
 "base": "Statement",
 "class": "Show",
@@ -328,7 +333,7 @@ _global_script_class_icons={
 "Character": "res://addons/Rakugo/icons/rakugo_character.svg",
 "CharacterObject": "",
 "CollapsedList": "",
-"Emojis": "res://addons/Rakugo/emojis/16x16/1f600.png",
+"Emojis": "res://addons/Rakugo/emojis/icon.png",
 "GDScriptDialog": "res://addons/Rakugo/icons/gdscript.svg",
 "Hide": "",
 "HistorySave": "res://addons/Rakugo/icons/save.svg",
@@ -336,6 +341,7 @@ _global_script_class_icons={
 "Menu": "",
 "NodeLink": "",
 "Notify": "",
+"NotifyLabel": "res://addons/Rakugo/icons/notify_label.svg",
 "PlayAnim": "",
 "PlayAudio": "",
 "Quest": "",
@@ -375,7 +381,7 @@ _global_script_class_icons={
 "Save": "res://addons/Rakugo/icons/save.svg",
 "SaveButton": "res://addons/Rakugo/icons/rakugo_save_button.svg",
 "Say": "",
-"ScenesLinks": "res://addons/Rakugo/icons/scenes_links.svg",
+"SceneLinks": "res://addons/Rakugo/icons/scene_links.svg",
 "Show": "",
 "SkipTimer": "",
 "Statement": "",
@@ -386,18 +392,18 @@ _global_script_class_icons={
 
 [application]
 
-config/name="The Question: Rakugo Editon"
-run/main_scene="res://question/scenes/Start/start.tscn"
-config/project_settings_override="res://question/rakugo.cfg"
+config/name="New Rakugo Game"
+run/main_scene="res://game/Start/Start.tscn"
+config/project_settings_override="res://game/rakugo.cfg"
 boot_splash/image="res://graphics/splash.png"
+boot_splash/fullsize=false
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://graphics/window_icon.png"
 config/auto_accept_quit=false
 config/quit_on_go_back=false
 rakugo/version="0.0.1"
 rakugo/game_credits="Jeremi {i}jebedaia360{/i} Biernacki"
-rakugo/debug=true
-rakugo/scenes_links="res://game/scenes_links.tres"
+rakugo/debug=false
 rakugo/save_folder="saves"
 rakugo/default_kind="adv"
 rakugo/test_saves=false
@@ -408,11 +414,13 @@ rakugo/default_manchor="center"
 rakugo/punctuation_pause="1"
 rakugo/default_mcolums=2.0
 rakugo/theme="res://themes/new_gui/new_gui.tres"
+rakugo/scene_links="res://game/scene_links.tres"
+rakugo/scenes_links="res://game/scenes_links.tres"
 
 [autoload]
 
 Rakugo="*res://addons/Rakugo/Rakugo.tscn"
-settings="*res://gui/settings.gd"
+settings="*res://addons/Rakugo/gui/settings.gd"
 Window="*res://gui/Window/Window.tscn"
 IconLoader="*res://addons/file-editor/scripts/IconLoader.gd"
 LastOpenedFiles="*res://addons/file-editor/scripts/LastOpenedFiles.gd"
@@ -429,7 +437,7 @@ gdscript/warnings/return_value_discarded=false
 
 [editor_plugins]
 
-enabled=PoolStringArray( "FontAwesome5", "Rakugo", "editor_icon_previewer", "file-editor", "godot-plugin-refresher", "zylann.editor_debugger" )
+enabled=PoolStringArray( "FontAwesome5", "Rakugo", "codeandweb.texturepacker", "editor_icon_previewer", "file-editor", "godot-plugin-refresher", "zylann.editor_debugger" )
 
 [input]
 
